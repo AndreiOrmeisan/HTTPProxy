@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\AndreiPC\\.nuget\\packages\\": {}
+    "C:\\Users\\Radu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AndreiPC\\Documents\\GitHub\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP.csproj",
+      "projectUniqueName": "C:\\Users\\Radu\\Documents\\GitHub\\HTTPProxy\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP.csproj",
       "projectName": "ProxyHTTP",
-      "projectPath": "C:\\Users\\AndreiPC\\Documents\\GitHub\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP.csproj",
-      "packagesPath": "C:\\Users\\AndreiPC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AndreiPC\\Documents\\GitHub\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP\\obj\\",
+      "projectPath": "C:\\Users\\Radu\\Documents\\GitHub\\HTTPProxy\\ProxyHTTP\\ProxyHTTP\\ProxyHTTP.csproj",
+      "packagesPath": "C:\\Users\\Radu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Radu\\Documents\\GitHub\\HTTPProxy\\ProxyHTTP\\ProxyHTTP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\AndreiPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Radu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

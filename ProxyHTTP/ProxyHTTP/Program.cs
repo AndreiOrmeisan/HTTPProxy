@@ -15,8 +15,8 @@ namespace Server
 
         static public void Server()
         {
-            IPHostEntry ipHost = Dns.GetHostEntry("Andrei");
-            IPAddress ipAddress = ipHost.AddressList[1];
+            IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
+            IPAddress ipAddress = ipHost.AddressList[ipHost.AddressList.Length - 1];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 55212);
 
             Socket s = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
