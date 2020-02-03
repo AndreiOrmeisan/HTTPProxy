@@ -19,14 +19,14 @@ namespace Server
             IPAddress ipAddress = ipHost.AddressList[1];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 55212);
 
-            Socket s = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            Socket server = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            s.Bind(localEndPoint);
-            s.Listen(10);
+            server.Bind(localEndPoint);
+            server.Listen(10);
 
             while (true)
             {
-                Socket clientSocket = s.Accept();
+                Socket clientSocket = server.Accept();
                 byte[] bytes = new byte[clientSocket.ReceiveBufferSize];
 
                 int bytesCount = clientSocket.Receive(bytes);
@@ -126,6 +126,7 @@ namespace Server
 
             var indexStopHeader = messenger.IndexOf("\r\n\r\n") + "\r\n\r\n".Length;
             return messenger.Substring(0, indexStopHeader);
+           
         }
 
         private static string GetUrl(string messenger)
