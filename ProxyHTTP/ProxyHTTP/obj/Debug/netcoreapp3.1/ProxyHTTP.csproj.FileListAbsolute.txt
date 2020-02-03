@@ -1,0 +1,11 @@
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\bin\Debug\netcoreapp3.1\ProxyHTTP.exe
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\bin\Debug\netcoreapp3.1\ProxyHTTP.deps.json
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\bin\Debug\netcoreapp3.1\ProxyHTTP.runtimeconfig.json
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\bin\Debug\netcoreapp3.1\ProxyHTTP.runtimeconfig.dev.json
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\bin\Debug\netcoreapp3.1\ProxyHTTP.dll
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\bin\Debug\netcoreapp3.1\ProxyHTTP.pdb
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\obj\Debug\netcoreapp3.1\ProxyHTTP.csprojAssemblyReference.cache
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\obj\Debug\netcoreapp3.1\ProxyHTTP.AssemblyInfoInputs.cache
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\obj\Debug\netcoreapp3.1\ProxyHTTP.AssemblyInfo.cs
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\obj\Debug\netcoreapp3.1\ProxyHTTP.dll
+C:\Users\AndreiPC\Documents\GitHub\ProxyHTTP\ProxyHTTP\ProxyHTTP\obj\Debug\netcoreapp3.1\ProxyHTTP.pdb
