@@ -8,18 +8,16 @@ namespace Server
 {
     internal class Response
     {
-        private const int ChunkSize = 8192;
+        private const int ChunkSize = 512;
         private string status;
         private Dictionary<string, string> headers;
-        private readonly Stream clientStream;
-        private System.IO.StreamWriter writer;
-        string a = "";
+        private StreamWriter writer;
+
         public Response(string status, Dictionary<string, string> headers, Stream clientStream)
         {
             this.status = status;
             this.headers = headers;
-            this.clientStream = clientStream;
-            this.writer = new System.IO.StreamWriter(clientStream);
+            this.writer = new StreamWriter(clientStream);
         }
 
         public Response(NetworkStream networkStream)
@@ -28,19 +26,18 @@ namespace Server
 
         public uint? ContentLength
                     => headers.ContainsKey("Content-Length") ? uint.TryParse(headers["Content-Length"], out uint value) ? (uint?)value : null : null;
-
-        internal void WriteHead(string status) 
+        internal void WriteHead(string status)
         {
-            var writer = new StreamWriter(clientStream);
-            writer.Write(status);
-            writer.Write("\r\n");
-
+            writer.Write(status + "\r\n");
             Console.WriteLine(status);
         }
 
         internal void WriteHeaders(IReadOnlyDictionary<string, string> headers)
         {
-            var writer = new StreamWriter(clientStream);
+            if (headers.ContainsKey("Content-Encoding"))
+            {
+                Console.WriteLine("Andrei");
+            }
             foreach (var element in headers)
             {
                 writer.Write($"{element.Key}: {element.Value}");
@@ -54,38 +51,24 @@ namespace Server
 
         internal void Write(ArraySegment<byte> bodyData)
         {
-            var writer = new StreamWriter(clientStream);
-            a += Encoding.UTF8.GetString(bodyData);
-            Console.WriteLine(Encoding.UTF8.GetString(bodyData));
             writer.WriteContent(bodyData);
         }
 
         public string Status => status;
         public IReadOnlyDictionary<string, string> Headers => this.headers;
         public Action<ArraySegment<byte>> OnData { get; set; }
-        public void ReadBody(StreamReader stream)
+        public void ReadBody(StreamReader myRead)
         {
-            var firstContent = stream.ReadBytes();
-            OnData?.Invoke(firstContent);
-            var total = firstContent.Length;
-
-            while(total != 0)
+            if (ContentLength != null)
             {
-                var content = stream.ReadBytes();
-                if (content != null)
+                var total = 0;
+                for (var buffer = myRead.ReadBytes(); total < ContentLength.Value; buffer = myRead.ReadBytes())
                 {
-                    OnData?.Invoke(content);
-                    total = content.Length;
+                    total += buffer.Length;
+                    OnData?.Invoke(buffer);
+                    Console.WriteLine(total);
                 }
-                else
-                {
-                    total = 0;
-                }
-                
             }
-
-            Console.WriteLine($"Received : {total}\r\n");
-
         }
     }
 }

@@ -14,12 +14,27 @@ namespace Server
 
         internal void Write(string text)
         {
-            clientStream.Write(Encoding.UTF8.GetBytes(text));
+            try
+            {
+                clientStream.Write(Encoding.UTF8.GetBytes(text));
+            }
+            catch
+            {
+
+            }
         }
 
         internal void WriteContent(ArraySegment<byte> bodyData)
         {
-            clientStream.Write(bodyData);      
+            try
+            {
+                clientStream.Write(bodyData);
+                Console.WriteLine(Encoding.UTF8.GetString(bodyData));
+            }
+            catch
+            {
+
+            }
         }
     }
 }

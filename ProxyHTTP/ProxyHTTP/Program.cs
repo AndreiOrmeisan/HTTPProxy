@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Text;
 
 namespace Server
 {
@@ -19,18 +20,25 @@ namespace Server
                     serverRespons.OnData = (bodyData) =>
                     {
                         Console.WriteLine($"Received {bodyData.Count} from body");
-                        serverRespons.Write(bodyData);
+                        response.Write(bodyData);
                     };
 
                     response.WriteHead(serverRespons.Status);
                     response.WriteHeaders(serverRespons.Headers);
-                    
                 };
-                client.Connect();
-                client.WriteHead("GET", request.Url());
-                var headers = request.Headers;
-                headers.Remove("Accept-Encoding");
-                client.WriteHeaders(headers);
+                try
+                {
+                    client.Connect();
+                    client.WriteHead("GET", request.Url());
+                    client.WriteHeaders(request.Headers);
+                }
+                catch
+                {
+                    Console.WriteLine("Andrei");
+                    response.Write(Encoding.UTF8.GetBytes("HTTP/1.1 400 Bad Request"));
+                }
+                //var headers = request.Headers;
+                //headers.Remove("Accept-Encoding");
             });
         }
     }

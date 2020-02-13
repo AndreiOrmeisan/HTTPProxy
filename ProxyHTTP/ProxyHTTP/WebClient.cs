@@ -29,33 +29,22 @@ namespace Server
 
         public void Connect()
         {
-            try
-            {
-                client.Connect(host, 80);
-                var stream = client.GetStream();
-                writer = new System.IO.StreamWriter(stream);
-                reader = new System.IO.StreamReader(stream);
-            }
-            catch
-            {
-                    
-                Console.WriteLine("Invalid ipAddress");
-            }
+            client.Connect(host, 80);
+            var stream = client.GetStream();
+            writer = new System.IO.StreamWriter(stream);
+            reader = new System.IO.StreamReader(stream);
         }
-
+        
         internal void WriteHead(string method, string url)
         {
-            writer.Write($"{method} {url} HTTP/1.0\r\n");
+            writer.Write($"{method} {url} HTTP/1.1\r\n");
+            writer.Flush();
         }
 
-        internal void WriteHeaders(Dictionary<string,string> dictionary)
+        internal void WriteHeaders(Dictionary<string, string> dictionary)
         {
             foreach (var pair in dictionary)
             {
-                if (pair.Key == "Connection")
-                {
-                    writer.Write("Connection: keep-alive");
-                }
                 writer.Write($"{pair.Key}: {pair.Value}\r\n");
             }
 
@@ -67,12 +56,15 @@ namespace Server
         private void ReadResponse()
         {
             var myRead = new StreamReader(client.GetStream());
-
             var status = myRead.ReadLine();
             var headers = new Dictionary<string, string>();
 
             for (var header = myRead.ReadLine(); !string.IsNullOrEmpty(header); header = myRead.ReadLine())
             {
+                if (header[0] == 0)
+                {
+                    break;
+                }
                 var separator = header.IndexOf(":");
                 if (!headers.ContainsKey((header[0..separator])))
                 {
@@ -84,9 +76,6 @@ namespace Server
 
             OneResponse(response);
             response.ReadBody(myRead);
+        }
     }
-
-    
-
-}
 }

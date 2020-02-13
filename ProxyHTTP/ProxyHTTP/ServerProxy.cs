@@ -41,9 +41,7 @@ namespace Server
                 }
 
                 var request = new Request(Encoding.ASCII.GetString(bytes, 0, bytesCount));
-
                 proxy(request, new Response(new NetworkStream(clientSocket)));
-
                 clientSocket.Close();
             }    
         }
