@@ -23,24 +23,26 @@ namespace Server
         }
 
         internal void WriteHeaders(IReadOnlyDictionary<string, string> headers)
-        {
+        {        
             foreach (var head in headers)
             {
-
                 clientStreamWriter.Write($"{head.Key}:{head.Value}\r\n");
                 Console.Write($"{head.Key}:{head.Value}\r\n");
             }
 
             clientStreamWriter.Write("\r\n");
+            clientStreamWriter.Flush();
             Console.Write("\r\n");
+      
         }
 
         internal void WriteBody(byte[] body)
         {
-            var diplayBody = Encoding.ASCII.GetString(body, 0, body.Length);
-            clientStream.Write(body);
-
+            clientStream.Write(body); 
+            clientStream.Flush();
+            var diplayBody = Encoding.ASCII.GetString(body, 0, body.Length); 
             Console.Write(diplayBody);
+            Console.WriteLine(body.Length);
         }
     }
 }

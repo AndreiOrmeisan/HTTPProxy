@@ -12,8 +12,6 @@ namespace Server
         private readonly string status;
         private Dictionary<string, string> headers;
         private readonly Stream clientStream;
-        private readonly System.IO.StreamReader readClient;
-        private readonly StreamWriter writerClient;
         private  int countBody;
         private StreamRead mystream;
         private StreamWrite clientWriter;
@@ -22,8 +20,6 @@ namespace Server
             this.status = status;
             this.headers = headers;
             this.clientStream = clientStream;
-            this.writerClient = new StreamWriter(this.clientStream);
-            this.readClient = new System.IO.StreamReader(this.clientStream);
             this.countBody = 0;
             this.clientWriter = new StreamWrite(clientStream);
         }
@@ -62,10 +58,14 @@ namespace Server
 
         public void ReadBody()
         {
-            for (var buffer = mystream.Read(ChunkSize) ; buffer != null; buffer = mystream.Read(ChunkSize))
+            var countBody = 0;
+            for (var buffer = mystream.ReadContent() ; countBody < ContentLength; buffer = mystream.ReadContent())
             {           
                 OnData?.Invoke(buffer);
+                countBody += buffer.Length;
             }
+
+            
         }
     }
     

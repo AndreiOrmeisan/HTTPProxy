@@ -31,7 +31,7 @@ namespace Server
             server.Listen(10);
             while (true)
             {
-                this.clientSocket = server.Accept();
+                clientSocket = server.Accept();
                 byte[] bytes = new byte[1222333];
 
                 int bytesRecive = clientSocket.Receive(bytes);

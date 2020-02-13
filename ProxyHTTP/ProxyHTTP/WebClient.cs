@@ -13,7 +13,7 @@ namespace Server
         private string host;
         private TcpClient client;
         private StreamWriter writer;
-        private System.IO.StreamReader reader;
+        private StreamReader reader;
 
         public WebClient(string host)
         {
@@ -24,12 +24,10 @@ namespace Server
 
         internal void Connect()
         {
-
-            client.Connect(host, 80);
-            var stream = client.GetStream();
-            writer = new StreamWriter(stream);
-            reader = new System.IO.StreamReader(stream);
-
+          client.Connect(host, 80); 
+          var stream = client.GetStream();
+          writer = new StreamWriter(stream);
+          reader = new StreamReader(stream);
         }
 
         internal void WriteHeaders(Dictionary<string, string> dictionary)
@@ -43,13 +41,12 @@ namespace Server
             writer.Flush();
             ReadResponse();
         }
+
         internal void WriteHead(string method, string path)
         {
-            writer.Write($"{method} {path} HTTP/1.0\r\n");
+            writer.Write($"{method} {path} HTTP/1.1\r\n");
             writer.Flush();
         }
-
-
 
         private void ReadResponse()
         {
@@ -57,7 +54,7 @@ namespace Server
             var mystream = new StreamRead(stream);
 
             var status = mystream.ReadLine();
-            var headers = new Dictionary<string, string>();      
+            var headers = new Headers();     
             for (var read = mystream.ReadLine(); read!=""; read= mystream.ReadLine())
             {     
                 var separator = read.IndexOf(":");
@@ -67,12 +64,12 @@ namespace Server
                 }
             }
 
-            var response = new Response(status, headers, mystream);
+            var length = headers.BodyLength();
+            var bodyType = headers.TransferEconding();
+          // pot renunta la clasa si pune direct dictionar
+            var response = new Response(status, headers.Content, mystream);
             OnResponse(response);
-            reader.DiscardBufferedData();
-        
             response.ReadBody();
-
         }
 
 

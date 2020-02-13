@@ -27,12 +27,18 @@ namespace Server
                     response.WriteHeaders(serverResponse.Headers);
                 };
 
-                client.Connect();
-                client.WriteHead("GET", request.Url());
-                var headers = request.Headers;
-                headers.Remove("Accept-Encoding");
-                
-                client.WriteHeaders(headers);
+                try
+                {
+                    client.Connect();
+                    client.WriteHead("GET", request.Url());
+                    // var headers = request.Headers;
+                    // headers.Remove("Accept-Encoding");
+
+                    client.WriteHeaders(request.Headers);
+                }catch{
+
+                    response.WriteHead("HTTP/1.1 400 Bad Request");
+                }
             }); 
         }
 
