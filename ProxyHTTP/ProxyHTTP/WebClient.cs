@@ -15,10 +15,6 @@ namespace Server
         System.IO.StreamWriter writer;
         System.IO.StreamReader reader;
 
-        public WebClient()
-        {
-        }
-
         public WebClient(string host)
         {
             client = new TcpClient();
@@ -55,9 +51,9 @@ namespace Server
 
         private void ReadResponse()
         {
-            var myRead = new StreamReader(client.GetStream());
-            var status = myRead.ReadLine();
+            var myRead = new StreamRead(client.GetStream());
             var headers = new Dictionary<string, string>();
+            var status = myRead.ReadLine();
 
             for (var header = myRead.ReadLine(); !string.IsNullOrEmpty(header); header = myRead.ReadLine())
             {

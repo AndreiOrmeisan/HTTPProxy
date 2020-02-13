@@ -57,12 +57,12 @@ namespace Server
         public string Status => status;
         public IReadOnlyDictionary<string, string> Headers => this.headers;
         public Action<ArraySegment<byte>> OnData { get; set; }
-        public void ReadBody(StreamReader myRead)
+        public void ReadBody(StreamRead myRead)
         {
             if (ContentLength != null)
             {
                 var total = 0;
-                for (var buffer = myRead.ReadBytes(); total < ContentLength.Value; buffer = myRead.ReadBytes())
+                for (var buffer = myRead.ReadBody(); total < ContentLength.Value; buffer = myRead.ReadBody())
                 {
                     total += buffer.Length;
                     OnData?.Invoke(buffer);

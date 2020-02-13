@@ -19,7 +19,7 @@ namespace Server.Test
             var stream = new MemoryStream();
             stream.Write(Encoding.UTF8.GetBytes(text));
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamRead(stream);
 
             Assert.Equal("HTTP/1.1 200 OK", reader.ReadLine());
             Assert.Equal("Date: Mon, 10 Feb 2020 08:26:32 GMT", reader.ReadLine());
@@ -36,7 +36,7 @@ namespace Server.Test
             var stream = new MemoryStream();
             stream.Write(Encoding.UTF8.GetBytes(text));
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamRead(stream);
 
             Assert.Equal("HTTP/1.1 200 OK", reader.ReadLine());
             Assert.Equal("Date: Mon, 10 Feb 2020 08:26:32 GMT", reader.ReadLine());
@@ -55,12 +55,12 @@ namespace Server.Test
             var stream = new MemoryStream();
             stream.Write(Encoding.UTF8.GetBytes(text));
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamRead(stream);
 
             Assert.Equal("HTTP/1.1 200 OK", reader.ReadLine());
             Assert.Equal("Date: Mon, 10 Feb 2020 08:26:32 GMT", reader.ReadLine());
             reader.ReadLine();
-            Assert.Equal(Encoding.UTF8.GetBytes("Andrei"), reader.ReadBytes());
+            Assert.Equal(Encoding.UTF8.GetBytes("Andrei"), reader.ReadBody());
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace Server.Test
             var stream = new MemoryStream();
             stream.Write(Encoding.UTF8.GetBytes(headers));
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamRead(stream);
 
             Assert.Equal(new string('a',512), reader.ReadLine());
             Assert.Equal(new string('a', 88), reader.ReadLine());
@@ -87,13 +87,13 @@ namespace Server.Test
             stream.Write(Encoding.UTF8.GetBytes(headers));
             stream.Write(Encoding.UTF8.GetBytes(content));
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamRead(stream);
 
             Assert.Equal(new string('a', 512), reader.ReadLine());
             Assert.Equal(new string('a', 88), reader.ReadLine());
             reader.ReadLine();
-            Assert.Equal(new string('a', 420), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 280), Encoding.UTF8.GetString(reader.ReadBytes()));
+            Assert.Equal(new string('a', 420), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 280), Encoding.UTF8.GetString(reader.ReadBody()));
         }
 
         [Fact]
@@ -106,18 +106,18 @@ namespace Server.Test
             stream.Write(Encoding.UTF8.GetBytes(headers));
             stream.Write(Encoding.UTF8.GetBytes(content));
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamRead(stream);
 
             Assert.Equal(new string('a', 512), reader.ReadLine());
             Assert.Equal(new string('a', 88), reader.ReadLine());
             reader.ReadLine();
-            Assert.Equal(new string('a', 420), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBytes()));
-            Assert.Equal(new string('a', 20), Encoding.UTF8.GetString(reader.ReadBytes()));
+            Assert.Equal(new string('a', 420), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 512), Encoding.UTF8.GetString(reader.ReadBody()));
+            Assert.Equal(new string('a', 20), Encoding.UTF8.GetString(reader.ReadBody()));
         }
     }
 }

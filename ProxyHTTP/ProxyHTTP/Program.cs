@@ -19,7 +19,7 @@ namespace Server
                     Console.WriteLine($"Content-Length: {serverRespons.ContentLength}\r\n");
                     serverRespons.OnData = (bodyData) =>
                     {
-                        Console.WriteLine($"Received {bodyData.Count} from body");
+                        Console.WriteLine($"Send {bodyData.Count} from body");
                         response.Write(bodyData);
                     };
 
@@ -34,7 +34,6 @@ namespace Server
                 }
                 catch
                 {
-                    Console.WriteLine("Andrei");
                     response.Write(Encoding.UTF8.GetBytes("HTTP/1.1 400 Bad Request"));
                 }
                 //var headers = request.Headers;
